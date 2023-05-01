@@ -2,9 +2,9 @@
   "name": "github-search-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/app.js",
+  "main": "src/app.ts",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "ts-node -T src/app.ts",
     "dev": "nodemon --exec ts-node -T src/app.ts",
     "test": "jest",
     "build": "npx tsc"

@@ -9,7 +9,7 @@
     "dev": "concurrently --kill-others-on-fail \"npm run backend\" \"npm run frontend\"",
     "heroku-postbuild": "cd frontend && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd backend && npm run dev"
+    "start": "cd backend && npm start"
   },
   "author": "",
   "license": "ISC",
