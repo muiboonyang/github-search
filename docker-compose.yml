@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  # backend:
+  # env_file: "./github-search-backend/.env"
+  # build:
+  #   context: ./github-search-backend
+  #   dockerfile: ./Dockerfile
+  # image: "github-search-backend"
+  # ports:
+  #   - "5050:5001"
+  frontend:
+  # build:
+  #   context: ./github-search-frontend
+  #   dockerfile: ./Dockerfile.prod
+  # image: "github-search-frontend-prod"
+  # ports:
+  #   # - "6565:3000" #localhost listens on 3000
+  #   - "6565:80" #nginx listens on 80
