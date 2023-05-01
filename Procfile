@@ -1,1 +1,1 @@
-web: node backend/src/app.ts
+web: nodemon --exec ts-node -T backend/src/app.ts

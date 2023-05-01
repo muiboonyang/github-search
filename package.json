@@ -2,7 +2,7 @@
   "name": "github-search",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "backend/dist/app.js",
   "scripts": {
     "frontend": "cd frontend && npm start",
     "backend": "cd backend && npm run dev",
