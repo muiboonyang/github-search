@@ -1,1 +1,1 @@
-web: nodemon --exec ts-node -T backend/src/app.ts
+web: npm start
