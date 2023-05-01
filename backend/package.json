@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "dist/app.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon --exec ts-node -T src/app.ts",
