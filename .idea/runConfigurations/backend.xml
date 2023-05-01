@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="backend" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/github-search-backend/package.json" />
+    <package-json value="$PROJECT_DIR$/backend/package.json" />
     <command value="run" />
     <scripts>
       <script value="dev" />

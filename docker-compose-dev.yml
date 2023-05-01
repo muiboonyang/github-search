@@ -2,16 +2,16 @@ version: "3"
 
 services:
   backend:
-    env_file: "github-search-backend/.env"
+    env_file: "backend/.env"
     build:
-      context: github-search-backend
+      context: backend
       dockerfile: ./Dockerfile.dev
     image: "github-search-backend-dev"
     ports:
       - "5001:5001"
   frontend:
     build:
-      context: ./github-search-frontend
+      context: frontend
       dockerfile: ./Dockerfile.dev
     image: "github-search-frontend-dev"
     ports:

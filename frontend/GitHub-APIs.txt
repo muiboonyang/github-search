@@ -1,0 +1,25 @@
+[Required Fields]
+
+"code_search_url": "https://api.github.com/search/code?q={query}{&page,per_page,sort,order}",
+- query
+- user/organization/repository
+- optional: language
+
+"commit_search_url": "https://api.github.com/search/commits?q={query}{&page,per_page,sort,order}",
+- query
+
+"issue_search_url": "https://api.github.com/search/issues?q={query}{&page,per_page,sort,order}",
+- query
+
+"label_search_url": "https://api.github.com/search/labels?q={query}&repository_id={repository_id}{&page,per_page}",
+- query
+- repository
+
+"repository_search_url": "https://api.github.com/search/repositories?q={query}{&page,per_page,sort,order}",
+- query
+
+"topic_search_url": "https://api.github.com/search/topics?q={query}{&page,per_page}",
+- query
+
+"user_search_url": "https://api.github.com/search/users?q={query}{&page,per_page,sort,order}"
+- query (username)

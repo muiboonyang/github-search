@@ -1,0 +1,17 @@
+FROM --platform=linux/amd64 node:16-alpine
+
+LABEL version="1.0"
+LABEL description="This is the base docker image for the GitHub Search backend API."
+LABEL maintainer = ["muiboonyang@gmail.com"]
+
+WORKDIR /app
+
+COPY ["package.json", "package-lock.json", "./"]
+RUN ls
+RUN npm install bcrypt@5.0.0
+RUN npm install --production
+COPY . .
+
+EXPOSE 5050
+
+CMD ["node", "server.ts"]

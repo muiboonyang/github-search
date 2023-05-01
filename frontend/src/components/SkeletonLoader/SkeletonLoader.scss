@@ -1,0 +1,105 @@
+@import 'src/styles/colors';
+@import 'src/styles/breakpoints';
+
+.bg-SkeletonColor {
+  color: $dark-grey-20;
+}
+
+.SkeletonApplicationNumber {
+  width: 10rem;
+  height: 2rem;
+  border-radius: 0.25rem;
+}
+
+.SkeletonButton {
+  width: 10rem;
+  height: 3rem;
+  border-radius: 0.25rem;
+  margin: 0;
+}
+
+.SkeletonStatusBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  // combine breakpoints for both mobile (x)s and tablet portrait (sm) screen sizes
+  @media screen and (max-width: $max-width-sm) {
+    flex-direction: column;
+    align-content: flex-start;
+    height: 6rem;
+  }
+
+  .SkeletonStatusBoxDetail {
+    height: 0.5rem;
+    width: 33%;
+
+    // combine breakpoints for both mobile (x)s and tablet portrait (sm) screen sizes
+    @media screen and (max-width: $max-width-sm) {
+      width: 12.5625rem;
+    }
+
+    @media screen and (min-width: $min-width-md) and (max-width: $max-width-md) {
+      width: 15.6875rem;
+    }
+
+    // combine breakpoints for both desktop (lg) and extra large (xl) desktop screen sizes
+    @media screen and (min-width: $min-width-lg) {
+      width: 20.25rem;
+    }
+  }
+}
+
+.SkeletonContentBox {
+  background: $white;
+  padding: 0 1.25rem;
+  margin-top: 1rem;
+
+  .SkeletonTabContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+    margin: 0;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid $dark-grey-20;
+
+    .SkeletonTab {
+      height: 1.5rem;
+      border-radius: 0.25rem;
+      margin: 0;
+
+      @media screen and (max-width: $max-width-xs) {
+        width: 8.125rem;
+      }
+
+      // combine breakpoints for xl, lg, md and sm screen sizes
+      @media screen and (min-width: $min-width-sm) {
+        width: 11.875rem;
+      }
+    }
+  }
+
+  .SkeletonTitle {
+    width: 40%;
+    height: 1.5rem;
+    margin-top: 2.25rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+  }
+
+  .SkeletonBlock {
+    width: 100%;
+    height: 12.5rem;
+    border-radius: 0.25rem;
+    margin: 0;
+  }
+}
+
+.SkeletonNavigationBar{
+  display:flex;
+  margin-top: 2.25rem;
+  padding-bottom: 4rem;
+  justify-content: center;
+  gap: 1.5rem;
+}

@@ -1,0 +1,35 @@
+1. Create Docker and .dockerignore files
+
+/////////////////////
+
+2. Open terminal and point to project directory 'github-search-frontend'
+- Build Dockerfile using the settings in 'Dockerfile'
+
+Development
+docker build -f Dockerfile.dev -t github-search-frontend-dev .
+
+Production
+docker build -f Dockerfile.prod -t github-search-frontend-prod .
+
+/////////////////////
+
+3. Run Dockerfile (using port 4001) - http://localhost:4001
+docker run -it -p 4001:3000 github-search-frontend
+
+/////////////////////
+
+4. Build (at docker-compose level) / Compose and run (--build to force a rebuild) [github-search/docker-compose.yml]
+docker-compose up -d --build
+
+Compose + Development
+docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
+
+Compose + Production
+docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
+
+/////////////////////////////////
+// CAN JUST RUN THIS COMMAND TO BUILD BOTH FRONTEND AND BACKEND
+/////////////////////////////////
+
+Development only
+docker-compose -f docker-compose-dev.yml up -d --build
