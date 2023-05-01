@@ -10,8 +10,6 @@ import axios from "axios";
 ///////////////////////////
 
 export const fetchApi = async (url: string, config?: {}) => {
-    const baseURL = process.env.REACT_APP_BASE_URL;
-    url = `${baseURL}${url}`;
     let res = await fetch(url, config);
     let status = res.status
     let data = await res.json();
