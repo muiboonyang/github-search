@@ -48,7 +48,7 @@ app.use(
 ); // overcomes cors issue
 app.use(express.json()); // allows res.body to work (express.json lets you read the req.body in json)
 app.use(express.urlencoded({ extended: false })); // allows you to read what the forms send over (by default, it's all encoded), just declare it
-app.use(express.static("public")); // allow loading of static files in "public" directory
+// app.use(express.static("public")); // allow loading of static files in "public" directory
 app.use(cookieparser());
 
 // =======================================
@@ -94,7 +94,7 @@ app.locals.isLoggedIn = false
 //======================
 
 app.get("/api/Status", async (req: Request, res: Response) => {
-    res.send('github-search backend is running')
+    res.send('github-search api is running')
 });
 
 app.get("/api/App", async (req: Request, res: Response) => {
