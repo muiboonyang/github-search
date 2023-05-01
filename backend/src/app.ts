@@ -93,7 +93,7 @@ app.locals.isLoggedIn = false
 // GET - Display app status
 //======================
 
-app.get("/", async (req: Request, res: Response) => {
+app.get("/api/Status", async (req: Request, res: Response) => {
     res.send('github-search backend is running')
 });
 
