@@ -2,9 +2,9 @@
 
 <h2>Introduction</h2>
 A GitHub Search app made using the MERN stack (MongoDB, Express React, Node), with Material UI, TypeScript and Redux Toolkit.
-<br>This app is hosted on Netlify and Heroku.
+<br>This app is hosted on Heroku.
 <br>
-<br><a href="https://github-search-sg.netlify.app/" target="_blank">Try it out here!</a>
+<br><a href="https://github-search-sg.herokuapp.com/" target="_blank">Try it out here!</a>
 
 <h2>App Features</h2>
 
@@ -19,7 +19,7 @@ A GitHub Search app made using the MERN stack (MongoDB, Express React, Node), wi
 </ul>
 
 <h4>User Services</h4>
-  <li>Secured with JWT (JSON Web Tokens)</li>
+  <li>Secured with JWT (JSON Web Tokens) and HttpOnly Cookies</li>
   <li>Create an account to add results to your Favourites list</li>
   <li>Update account password and name</li>
   
