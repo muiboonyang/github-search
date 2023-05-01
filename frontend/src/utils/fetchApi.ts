@@ -27,7 +27,6 @@ const extendSessionWithRefreshToken = async () => {
 };
 
 export const fetchApiWithJwt = async (url: string, method: string, body?: any) => {
-    // not able to retrieve cookies in prod env due to cross domain
     const isLoggedIn = Cookies.get('isLoggedIn');
     isLoggedIn && await extendSessionWithRefreshToken();
 
@@ -49,8 +48,6 @@ export const fetchApiWithJwt = async (url: string, method: string, body?: any) =
 ///////////////////////////y
 
 export const axiosApi = async (url: string, config?: {}) => {
-    const baseURL = process.env.REACT_APP_BASE_URL;
-    url = `${baseURL}${url}`;
     const {status, data} = await axios(url, config);
     console.log(status, data);
     return {status, data};
