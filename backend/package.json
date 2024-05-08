@@ -7,8 +7,6 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "npx tsx app.ts",
-    "build": "npx tsc",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "build": "npx tsc"
   }
 }
