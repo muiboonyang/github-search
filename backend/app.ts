@@ -2,8 +2,11 @@
 // Backend (Express):
 //////////////////////////////
 
-require('dotenv').config()
 import express, { Request, Response } from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const connectDB = require("./utils/db");
 const session = require("express-session");
 const cors = require("cors");
