@@ -8,6 +8,7 @@ import {Octokit} from "@octokit/rest";
 import cookieparser from "cookie-parser";
 import cors from "cors";
 import session from "express-session";
+import fetch from 'node-fetch';
 
 import connectDB from "./utils/db";
 import favouritesController from './controllers/favourites';
@@ -45,7 +46,6 @@ app.use(
     cors({
         credentials: true,
         origin: [
-            "https://github-search-sg.netlify.app", // deployed frontend
             "http://localhost:3000", // localhost frontend
             "http://localhost:3001", // localhost frontend
             "http://localhost:3002", // localhost frontend
@@ -136,16 +136,14 @@ app.post("/api/github", async (req: Request, res: Response) => {
     const query = req.body.query;
 
     try {
-        const fetchData = (await import('node-fetch')).default;
-
-        const response = await fetchData(`https://api.github.com/search/${type}?q=${query}`, {
+        const response = await fetch(`https://api.github.com/search/${type}?q=${query}`, {
             headers: {
                 Authorization: "Basic " + process.env.REACT_APP_SECRET,
                 "Content-Type": "application/json",
             },
         })
 
-        const data = response.json();
+        const data = await response.json();
         res.send(data)
     } catch (err) {
         res.send(err); // still sends as 200 (need to get GitHub error code and pass to frontend)

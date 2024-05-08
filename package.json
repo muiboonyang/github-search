@@ -11,7 +11,7 @@
   "main": "backend/dist/app.js",
   "scripts": {
     "start": "cd backend && npm start",
-    "dev": "npx kill-port 3001 5002 && concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" --kill-others",
+    "dev": "npx kill-port 3001 5002 && concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\"",
     "heroku-postbuild": "cd frontend && npm install && npm run build && cd ../backend && npm install && npm run build"
   },
   "dependencies": {

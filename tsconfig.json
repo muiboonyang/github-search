@@ -20,14 +20,11 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    /* Additional Config */
-    //    "moduleResolution": "node",
-    "esModuleInterop": true
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "backend",
-    "frontend"
+    "backend/**/*.{ts,tsx}",
+    "frontend/**/*.{ts,tsx}"
   ],
   "references": [
     {

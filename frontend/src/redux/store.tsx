@@ -23,7 +23,15 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 export type RootState = ReturnType<typeof reducers>;
 
 const store = configureStore({
-    reducer: persistedReducer
+    reducer: persistedReducer,
+    devTools: process.env.NODE_ENV !== "production",
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+                ignoredActionPaths: ['payload.register', 'payload.rehydrate'],
+            },
+        }),
 });
 
 const persistor = persistStore(store);
