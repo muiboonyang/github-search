@@ -1,2 +1,4 @@
-// Generate token secret
-console.log(require('utils/crypto').randomBytes(64).toString('hex'));
+import { randomBytes } from 'crypto';
+
+ // Generate token secret
+console.log(randomBytes(64).toString('hex'));

@@ -1,8 +1,9 @@
 import express, { Request, Response } from "express";
+import bcrypt from "bcrypt";
+import UserModel from "../models/users.model";
+import verifyToken from "../middleware/verifyToken";
+
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const UserModel = require("../models/users.model");
-const verifyToken = require("../middleware/verifyToken");
 
 //======================
 // ROUTES
@@ -72,4 +73,4 @@ router.post("/update", verifyToken, async (req: Request, res: Response) => {
 // EXPORT
 //======================
 
-module.exports = router;
+export default router;

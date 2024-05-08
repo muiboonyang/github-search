@@ -29,4 +29,4 @@ const FavouritesSchema = new mongoose.Schema(
 
 const FavouritesModel = mongoose.model("FavouritesModel", FavouritesSchema);
 
-module.exports = FavouritesModel;
+export default FavouritesModel;

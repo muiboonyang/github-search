@@ -24,7 +24,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import CustomAlert from "../components/CustomAlert/CustomAlert";
 import Cookies from "js-cookie";
-import {axiosApi} from "../utils/fetchApi";
+import {fetchApi} from "../utils/fetchApi";
 
 const Login = (): JSX.Element => {
 
@@ -96,53 +96,21 @@ const Login = (): JSX.Element => {
     const loginUser = async () => {
         dispatch(loadingStatus());
 
-        /////////////////////////////
-        // 1) Using Fetch
-        /////////////////////////////
-
-        // try {
-        //     const {status, data} = await fetchApi(
-        //         `/api/Sessions/login`,
-        //         {
-        //             method: "POST",
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //             credentials: "include",
-        //             body: JSON.stringify({
-        //                 email: email,
-        //                 password: password,
-        //             }),
-        //         }
-        //     );
-        //
-        //     if (status === 200) {
-        //         // unable to see alert for successful log in due to redirect to login page
-        //         setAlertMessage(data.message);
-        //         dispatch(login(data));
-        //         navigate("/");
-        //     } else {
-        //         setAlertMessage(data.message);
-        //     }
-        //
-        // } catch (err) {
-        //     console.log(err);
-        // }
-
-        /////////////////////////////
-        // 2) Using Axios
-        /////////////////////////////
-
         try {
-            const {status, data} = await axiosApi(`/api/Sessions/login`,
-            {
-                method: 'post',
-                withCredentials: true,
-                headers: {'content-type': 'application/json'},
-                data: {
-                    email: email,
-                    password: password,
-                }})
+            const {status, data} = await fetchApi(
+                `/api/sessions/login`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                    }),
+                }
+            );
 
             if (status === 200) {
                 // unable to see alert for successful log in due to redirect to login page

@@ -118,7 +118,7 @@ const Profile = (): JSX.Element => {
         dispatch(loadingStatus());
         try {
             const {status, data} = await fetchApiWithJwt(
-                `/api/Users/profile`, 'Get'
+                `/api/users/profile`, 'Get'
             );
 
             if (status === 200) {
@@ -145,7 +145,7 @@ const Profile = (): JSX.Element => {
             dispatch(loadingStatus());
             try {
                 const {status, data} = await fetchApiWithJwt(
-                    `/api/Users/update`, 'Post',
+                    `/api/users/update`, 'Post',
                     {
                         name: name,
                         password: password,

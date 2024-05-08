@@ -2,23 +2,27 @@
 // Backend (Express):
 //////////////////////////////
 
-import express, { Request, Response } from "express";
+import express, {Request, Response} from "express";
 import dotenv from "dotenv";
+import {Octokit} from "@octokit/rest";
+import cookieparser from "cookie-parser";
+import cors from "cors";
+import session from "express-session";
+
+import connectDB from "./utils/db";
+import favouritesController from './controllers/favourites';
+import sessionController from './controllers/sessions';
+import userController from './controllers/users';
+import path from 'path';
+import {fileURLToPath} from 'url';
 
 dotenv.config();
-
-const connectDB = require("./utils/db");
-const session = require("express-session");
-const cors = require("cors");
-const cookieparser = require("cookie-parser");
-const fetch = require("node-fetch");
-const { Octokit } = require("@octokit/rest");
 
 // =======================================
 //             CONNECT TO DB
 // =======================================
 
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = process.env.MONGO_URI ?? '';
 connectDB(mongoURI);
 
 // =======================================
@@ -38,19 +42,19 @@ app.use(express.static('public'))
 // =======================================
 
 app.use(
-  cors({
-    credentials: true,
-    origin: [
-      "https://github-search-sg.netlify.app", // deployed frontend
-      "http://localhost:3000", // localhost frontend
-      "http://localhost:3001", // localhost frontend
-      "http://localhost:3002", // localhost frontend
-      "http://localhost:6565", // localhost docker frontend
-    ],
-  })
+    cors({
+        credentials: true,
+        origin: [
+            "https://github-search-sg.netlify.app", // deployed frontend
+            "http://localhost:3000", // localhost frontend
+            "http://localhost:3001", // localhost frontend
+            "http://localhost:3002", // localhost frontend
+            "http://localhost:6565", // localhost docker frontend
+        ],
+    })
 ); // overcomes cors issue
 app.use(express.json()); // allows res.body to work (express.json lets you read the req.body in json)
-app.use(express.urlencoded({ extended: false })); // allows you to read what the forms send over (by default, it's all encoded), just declare it
+app.use(express.urlencoded({extended: false})); // allows you to read what the forms send over (by default, it's all encoded), just declare it
 app.use(cookieparser());
 
 // =======================================
@@ -58,26 +62,21 @@ app.use(cookieparser());
 // =======================================
 
 app.use(
-  session({
-    secret: "github-search",
-    resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 1000 * 60 * 60 } // 60 mins
-  })
+    session({
+        secret: "github-search",
+        resave: false,
+        saveUninitialized: false,
+        cookie: {maxAge: 1000 * 60 * 60} // 60 mins
+    })
 );
 
 // =======================================
 //                CONTROLLERS
 // =======================================
 
-const sessionController = require("./controllers/sessions");
-app.use("/api/Sessions", sessionController);
-
-const userController = require("./controllers/users");
-app.use("/api/Users", userController);
-
-const favouritesController = require("./controllers/favourites");
-app.use("/api/Favourites", favouritesController);
+app.use("/api/sessions", sessionController);
+app.use("/api/users", userController);
+app.use("/api/favourites", favouritesController);
 
 // =======================================
 //           GLOBAL VARIABLES
@@ -95,11 +94,11 @@ app.locals.isLoggedIn = false
 // GET - Display app status
 //======================
 
-app.get("/api/Status", async (req: Request, res: Response) => {
+app.get("/api/status", async (req: Request, res: Response) => {
     res.send('github-search api is running')
 });
 
-app.get("/api/App", async (req: Request, res: Response) => {
+app.get("/api/app", async (req: Request, res: Response) => {
     if (req.session.views) {
         req.session.views++
         res.setHeader('Content-Type', 'text/html')
@@ -119,35 +118,38 @@ app.get("/api/App", async (req: Request, res: Response) => {
 // GET - Get current GitHub API Search limit
 //======================
 
-app.get("/api/Limit", async (req: Request, res: Response) => {
-  const octokit = new Octokit({
-    auth: process.env.REACT_APP_OCTOKIT,
-  });
+app.get("/api/limit", async (req: Request, res: Response) => {
+    const octokit = new Octokit({
+        auth: process.env.REACT_APP_OCTOKIT,
+    });
 
-  const limit = await octokit.request("GET /rate_limit", {});
-  res.send(limit.data.resources.search);
+    const limit = await octokit.request("GET /rate_limit", {});
+    res.send(limit.data.resources.search);
 });
 
 //======================
 // POST - Get GitHub Search API results
 //======================
 
-app.post("/api/Github", async (req: Request, res: Response) => {
-  const type = req.body.type;
-  const query = req.body.query;
+app.post("/api/github", async (req: Request, res: Response) => {
+    const type = req.body.type;
+    const query = req.body.query;
 
-  try {
-    fetch(`https://api.github.com/search/${type}?q=${query}`, {
-      headers: {
-        Authorization: "Basic " + process.env.REACT_APP_SECRET,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res: Response) => res.json())
-      .then((data: any) => res.send(data));
-  } catch (err) {
-    res.send(err); // still sends as 200 (need to get GitHub error code and pass to frontend)
-  }
+    try {
+        const fetchData = (await import('node-fetch')).default;
+
+        const response = await fetchData(`https://api.github.com/search/${type}?q=${query}`, {
+            headers: {
+                Authorization: "Basic " + process.env.REACT_APP_SECRET,
+                "Content-Type": "application/json",
+            },
+        })
+
+        const data = response.json();
+        res.send(data)
+    } catch (err) {
+        res.send(err); // still sends as 200 (need to get GitHub error code and pass to frontend)
+    }
 });
 
 // =======================================
@@ -157,18 +159,17 @@ app.post("/api/Github", async (req: Request, res: Response) => {
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 
-module.exports = app;
-
 // =======================================
 //              STATIC FILES
 // =======================================
 
-const path = require('path')
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, '../../frontend/build')))
 
 // AFTER defining routes: Anything that doesn't match what's above, send back index.html; (the beginning slash ('/') in the string is important!)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../../frontend/build/index.html'))
+    res.sendFile(path.join(__dirname + '/../../frontend/build/index.html'))
 })

@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 const router = express.Router();
-const FavouritesModel = require("../models/favourites.model");
-const verifyToken = require("../middleware/verifyToken");
+import FavouritesModel from "../models/favourites.model";
+import verifyToken from "../middleware/verifyToken";
 
 //======================
 // ROUTES
@@ -72,4 +72,4 @@ router.delete("/delete/:id", verifyToken, async (req: Request, res: Response) =>
 // EXPORT
 //======================
 
-module.exports = router;
+export default router;

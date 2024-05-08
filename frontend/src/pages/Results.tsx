@@ -331,7 +331,7 @@ const Results = (
        if (!favouriteExits) {
            try {
                const {status, data} = await fetchApiWithJwt(
-                   `/api/Favourites/new`, 'Post',
+                   `/api/favourites/new`, 'Post',
                    body
                );
 

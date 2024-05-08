@@ -54,7 +54,7 @@ const App = () => {
         const getFavouritesId = async () => {
             try {
                 const {status, data} = await fetchApiWithJwt(
-                    `/api/Favourites/`, 'Get'
+                    `/api/favourites/`, 'Get'
                 );
 
                 if (status === 200) {

@@ -1,5 +1,7 @@
-require('dotenv').config()
 import {CookieOptions} from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const accessTokenExpiry = 1000 * 60 * 15 // '15m'
 export const refreshTokenExpiry = 1000 * 60 * 60 * 24 // '1d'

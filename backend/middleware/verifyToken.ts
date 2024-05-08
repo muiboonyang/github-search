@@ -1,6 +1,10 @@
-require('dotenv').config()
 import {Request, Response, NextFunction} from "express";
 import jwt from 'jsonwebtoken';
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET ?? ''
 
 const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies.accessToken;
@@ -8,7 +12,7 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
 
     // Decode token process
     if (token) {
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err: any, decoded: any) => {
+        jwt.verify(token, accessTokenSecret, (err: any, decoded: any) => {
             if (err) {
                 return res.status(403).send({
                     message: "Session has expired. Please log in again.",
@@ -31,4 +35,4 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-module.exports = verifyToken;
+export default verifyToken;

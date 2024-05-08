@@ -63,7 +63,7 @@ const Search = (
 
     const getLimit = async () => {
         try {
-            await fetchApi(`/api/Limit`);
+            await fetchApi(`/api/limit`);
         } catch (err) {
             console.log(err);
         }
@@ -71,7 +71,7 @@ const Search = (
 
     const searchUser = async (query: string) => {
         try {
-            const {status, data} = await fetchApi(`/api/Github`, {
+            const {status, data} = await fetchApi(`/api/github`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const Search = (
     const generateTable = async () => {
         dispatch(loadingStatus());
         try {
-            const {status, data} = await fetchApi(`/api/Github`, {
+            const {status, data} = await fetchApi(`/api/github`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

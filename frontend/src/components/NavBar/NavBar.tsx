@@ -55,7 +55,7 @@ const NavBar = () => {
         dispatch(loadingStatus());
         try {
             const {status, data}: any = await fetchApiWithJwt(
-                `/api/Sessions/logout`, 'Get'
+                `/api/sessions/logout`, 'Get'
             );
 
             if (status === 200) {

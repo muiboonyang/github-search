@@ -137,7 +137,7 @@ const Favourites = ({favouriteIds, setFavouriteIds}: FavouritesProps) => {
         dispatch(loadingStatus());
         try {
             const {status, data} = await fetchApiWithJwt(
-                `/api/Favourites/`, 'Get'
+                `/api/favourites/`, 'Get'
             );
 
             if (status === 200) {
@@ -161,7 +161,7 @@ const Favourites = ({favouriteIds, setFavouriteIds}: FavouritesProps) => {
     const deleteFavourite = async (id: any, userOrRepoId: any) => {
         try {
             const {status} = await fetchApiWithJwt(
-                `/api/Favourites/delete/${id}`, 'Delete'
+                `/api/favourites/delete/${id}`, 'Delete'
             );
             if (status === 200) {
                 let filteredArray = favouriteIds.filter(

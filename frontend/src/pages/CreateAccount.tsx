@@ -116,7 +116,7 @@ const CreateAccount = (): JSX.Element => {
             dispatch(loadingStatus());
             try {
                 const {status, data} = await fetchApi(
-                    `/api/Users/new`,
+                    `/api/users/new`,
                     {
                         method: "POST",
                         headers: {

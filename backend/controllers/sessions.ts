@@ -1,16 +1,21 @@
-require('dotenv').config()
 import express, {Request, Response} from "express";
+import dotenv from "dotenv";
 import {
     accessTokenCookieOptions,
     accessTokenExpiry,
     refreshTokenCookieOptions,
     refreshTokenExpiry
 } from "../config/cookieOptions";
+import bcrypt from "bcrypt";
+import UserModel from "../models/users.model";
+import jwt from "jsonwebtoken";
+
+dotenv.config();
 
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const UserModel = require("../models/users.model");
-const jwt = require("jsonwebtoken");
+
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET ?? ''
+const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET ?? ''
 
 //======================
 // ROUTES
@@ -54,7 +59,7 @@ router.post("/login", async (req: Request, res: Response) => {
                     email: loginDetails.email,
                     name: loginDetails.name,
                 },
-                process.env.ACCESS_TOKEN_SECRET,
+                accessTokenSecret,
                 {
                     expiresIn: `${accessTokenExpiry}ms`,
                 }
@@ -66,7 +71,7 @@ router.post("/login", async (req: Request, res: Response) => {
                     email: loginDetails.email,
                     name: loginDetails.name,
                 },
-                process.env.REFRESH_TOKEN_SECRET,
+                refreshTokenSecret,
                 {
                     expiresIn: `${refreshTokenExpiry}ms`,
                 }
@@ -107,7 +112,7 @@ router.get("/refresh", (req: Request, res: Response) => {
     const refreshToken = req.cookies.refreshToken;
 
     // Verifying refresh token
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err: any, decoded: any) => {
+    jwt.verify(refreshToken, refreshTokenSecret, (err: any, decoded: any) => {
         if (err) {
             // Invalid refresh token
             return res.status(403).json({message: `Could not refresh access token`});
@@ -118,7 +123,7 @@ router.get("/refresh", (req: Request, res: Response) => {
                     email: decoded.email,
                     name: decoded.name,
                 },
-                process.env.ACCESS_TOKEN_SECRET,
+                accessTokenSecret,
                 {
                     expiresIn: `${accessTokenExpiry}ms`,
                 }
@@ -157,4 +162,4 @@ router.get("/logout", (req: Request, res: Response) => {
 // EXPORT
 //======================
 
-module.exports = router;
+export default router;
