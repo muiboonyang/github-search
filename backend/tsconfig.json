@@ -7,28 +7,22 @@
       "DOM",
       "DOM.Iterable"
     ],
-    "module": "ESNext",
+    "module": "commonjs",
     "skipLibCheck": true,
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "esModuleInterop": true,
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
-  },
-  "include": [
-    "backend/**/*.{ts,tsx}",
-    "frontend/**/*.{ts,tsx}"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ]
+    //    "noUnusedLocals": true,
+    //    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    /* Additional Config */
+    "outDir": "./dist"
+  }
 }

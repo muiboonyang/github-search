@@ -39,6 +39,9 @@ router.post("/login", async (req: Request, res: Response) => {
         return;
     } else {
         const loginDetails = await UserModel.findOne({email: email}); //  if query matches, first document is returned, otherwise null.
+
+        if (!loginDetails) return res.status(403).json({message: `Login details not found for ${email}`});
+
         const hash = loginDetails.password;
         const valid = await bcrypt.compare(password, hash);
 
