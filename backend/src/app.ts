@@ -14,6 +14,7 @@ import connectDB from "./utils/db";
 import favouritesController from './controllers/favourites';
 import sessionController from './controllers/sessions';
 import userController from './controllers/users';
+import {fileURLToPath} from 'url';
 import path from 'path';
 
 dotenv.config();
@@ -160,6 +161,7 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 //              STATIC FILES
 // =======================================
 
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Serve static files from the React frontend app

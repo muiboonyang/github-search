@@ -6,7 +6,7 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "node dist/app.js",
-    "dev": "npx tsx app.ts",
+    "dev": "npx tsx src/app.ts",
     "build": "npx tsc"
   }
 }
