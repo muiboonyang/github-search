@@ -1,21 +1,15 @@
-//////////////////////////////
-// Backend (Express):
-//////////////////////////////
-
 import express, {Request, Response} from "express";
-import dotenv from "dotenv";
+import connectDB from "./utils/db";
+import favourites from "./controllers/favourites";
+import sessions from './controllers/sessions';
+import users from "./controllers/users";
 import {Octokit} from "@octokit/rest";
 import cookieparser from "cookie-parser";
 import cors from "cors";
 import session from "express-session";
 import fetch from 'node-fetch';
-
-import connectDB from "./utils/db";
-import favouritesController from './controllers/favourites';
-import sessionController from './controllers/sessions';
-import userController from './controllers/users';
-import {fileURLToPath} from 'url';
 import path from 'path';
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -74,9 +68,9 @@ app.use(
 //                CONTROLLERS
 // =======================================
 
-app.use("/api/sessions", sessionController);
-app.use("/api/users", userController);
-app.use("/api/favourites", favouritesController);
+app.use("/api/sessions", sessions);
+app.use("/api/users", users);
+app.use("/api/favourites", favourites);
 
 // =======================================
 //           GLOBAL VARIABLES
@@ -94,7 +88,7 @@ app.locals.isLoggedIn = false
 // GET - Display app status
 //======================
 
-app.get("/api/status", async (req: Request, res: Response) => {
+app.get("/api/status", async (_, res: Response) => {
     res.send('github-search api is running')
 });
 
@@ -118,7 +112,7 @@ app.get("/api/app", async (req: Request, res: Response) => {
 // GET - Get current GitHub API Search limit
 //======================
 
-app.get("/api/limit", async (req: Request, res: Response) => {
+app.get("/api/limit", async (_, res: Response) => {
     const octokit = new Octokit({
         auth: process.env.REACT_APP_OCTOKIT,
     });
@@ -161,13 +155,10 @@ app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
 //              STATIC FILES
 // =======================================
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 // Serve static files from the React frontend app
 app.use(express.static(path.join(__dirname, '../../frontend/build')))
 
-// AFTER defining routes: Anything that doesn't match what's above, send back index.html; (the beginning slash ('/') in the string is important!)
-app.get('*', (req, res) => {
+// AFTER defining routes: Anything that doesn't match what's above, send back index.html; the beginning slash '/' in the string is important
+app.get('*', (_, res) => {
     res.sendFile(path.join(__dirname + '/../../frontend/build/index.html'))
 })

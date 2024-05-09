@@ -3,7 +3,7 @@
     /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "target": "ES2020",
     /* Specify what module code is generated. */
-    "module": "ESNext",
+    "module": "commonjs",
     /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */
     "allowJs": true,
     /* Skip type checking all .d.ts files. */

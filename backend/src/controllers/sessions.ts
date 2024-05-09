@@ -12,7 +12,7 @@ import jwt from "jsonwebtoken";
 
 dotenv.config();
 
-const router = express.Router();
+const sessions = express.Router();
 
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET ?? ''
 const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET ?? ''
@@ -26,7 +26,7 @@ const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET ?? ''
 // JWT - Access Token
 //=======================
 
-router.post("/login", async (req: Request, res: Response) => {
+sessions.post("/login", async (req: Request, res: Response) => {
     const email = req.body.email;
     const password = req.body.password;
 
@@ -110,7 +110,7 @@ router.post("/login", async (req: Request, res: Response) => {
 // JWT - Refresh Token
 //=======================
 
-router.get("/refresh", (req: Request, res: Response) => {
+sessions.get("/refresh", (req: Request, res: Response) => {
     // Receive refreshToken in http-only cookie from frontend
     const refreshToken = req.cookies.refreshToken;
 
@@ -151,7 +151,7 @@ router.get("/refresh", (req: Request, res: Response) => {
 // DESTROY - Destroy session (log out)
 //=======================
 
-router.get("/logout", (req: Request, res: Response) => {
+sessions.get("/logout", (req: Request, res: Response) => {
     req.session.destroy(err => console.log(err));
     res.cookie('accessToken', '', {maxAge: 1});
     res.cookie('refreshToken', '', {maxAge: 1});
@@ -161,8 +161,4 @@ router.get("/logout", (req: Request, res: Response) => {
     });
 });
 
-//======================
-// EXPORT
-//======================
-
-export default router;
+export default sessions;

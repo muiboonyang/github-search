@@ -2,7 +2,6 @@
   "name": "github-search-backend",
   "private": true,
   "version": "1.0.0",
-  "type": "module",
   "scripts": {
     "start": "node dist/app.js",
     "dev": "npx tsx src/app.ts",
