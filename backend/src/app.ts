@@ -27,13 +27,7 @@ connectDB(mongoURI);
 const app = express();
 
 // =======================================
-// Static middleware
-// =======================================
-
-app.use(express.static('public'))
-
-// =======================================
-// Body parser middleware
+// CORS middleware
 // =======================================
 
 app.use(
@@ -63,6 +57,19 @@ app.use(
         cookie: {maxAge: 1000 * 60 * 60} // 60 mins
     })
 );
+
+// =======================================
+//              STATIC FILES
+// =======================================
+
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '../../frontend/dist')))
+
+// AFTER defining routes: Anything that doesn't match what's above, send back index.html; the beginning slash '/' in the string is important
+app.get('*', (_, res) => {
+    res.sendFile(path.join(__dirname + '/../../frontend/dist/index.html'))
+})
+
 
 // =======================================
 //                CONTROLLERS
@@ -148,17 +155,6 @@ app.post("/api/github", async (req: Request, res: Response) => {
 //              LISTENER
 // =======================================
 
-const PORT = process.env.PORT || 5001;
-app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));
+const port = process.env.PORT || 5000;
 
-// =======================================
-//              STATIC FILES
-// =======================================
-
-// Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../../frontend/dist')))
-
-// AFTER defining routes: Anything that doesn't match what's above, send back index.html; the beginning slash '/' in the string is important
-app.get('*', (_, res) => {
-    res.sendFile(path.join(__dirname + '/../../frontend/dist/index.html'))
-})
+app.listen(port, () => console.log(`Listening on port: ${port}`));
