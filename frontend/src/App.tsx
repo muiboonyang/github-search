@@ -16,7 +16,7 @@ import Cookies from "js-cookie";
 import {useDispatch} from "react-redux";
 import {logout} from "./redux/userSlice";
 
-export interface FavouriteIdsProps{
+export interface FavouriteIdsProps {
     id: string;
 }
 
@@ -58,19 +58,19 @@ const App = () => {
                 );
 
                 if (status === 200) {
-                    let userFavs = data.filter(
+                    const userFavs = data.filter(
                         (element: any) => element.favouriteType === "user"
                     );
-                    let repoFavs = data.filter(
+                    const repoFavs = data.filter(
                         (element: any) => element.favouriteType === "repo"
                     );
-                    let userId = userFavs.map((element: any) => element.userId);
-                    let repoId = repoFavs.map((element: any) => element.repoId);
-                    let combinedArr = favouriteIds.concat(repoId, userId);
-                    let removedUndefined = combinedArr.filter((element: any) => {
+                    const userId = userFavs.map((element: any) => element.userId);
+                    const repoId = repoFavs.map((element: any) => element.repoId);
+                    const combinedArr = favouriteIds.concat(repoId, userId);
+                    const removedUndefined = combinedArr.filter((element: any) => {
                         return element !== undefined;
                     });
-                    let uniqueArr = [...new Set(removedUndefined)];
+                    const uniqueArr = [...new Set(removedUndefined)];
                     setFavouriteIds(uniqueArr);
                 }
             } catch (err) {
